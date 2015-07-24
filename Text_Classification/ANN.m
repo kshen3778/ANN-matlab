@@ -5,28 +5,24 @@ file = input('Enter file name: ', 's');
 %load image
 img = imread([file, '.jpg']);
 
-imshow(img)
-
-%V = img(155:609,130:501,:);
-%V = img(8:47,12:31,:);
-V = cropimg(img, 128);
-imshow(V)
+V = cropimg(img);
 
 %convert to grayscale
-RGB = rgb2gray(V);
-imshow(RGB);
+g = rgb2gray(V);
+%imshow(RGB);
 
-R = imgtovect(RGB);
+R = imgtovect(g);
 
-imshow(vecttoimage(R));
 %R = R'; %row vector
+figure;
+imshow(vecttoimage(R));
 
 %train on training data
-[percenterror, W_1, W_2] = runANN(12,0.0015,600);
+[percenterror, W_1, W_2] = runANN(250,0.001574,3000);
 
 %test on loaded image
 TEST = R;
-[neg_loglike,output_y, dE_dw1, dE_dw2] = function_e(TEST, testtargets(1,:), 12, W_1, W_2);
+[neg_loglike,output_y, dE_dw1, dE_dw2] = function_e(TEST, testtargets(1,:), 250, W_1, W_2);
 output_y = output_y';
 
 %display recognized number
