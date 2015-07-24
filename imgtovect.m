@@ -1,11 +1,12 @@
 function [ D ] = imgtovect( V )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%resize image
 A = imresize(V, [16 16]);
-B = A(:);
+A = A'; %transpose image to send into algorithm
+B = reshape(A, [1 256]);
+%scale to values of between 0-1
 C = double(B) ./ double(255);
 %C = C';
-D = 1 - C;
+D = 1 - C; %invert image
 
 end
 
